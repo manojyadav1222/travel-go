@@ -1,20 +1,85 @@
-# Python cache
+# =========================
+# Python Cache Files
+# =========================
 __pycache__/
+*.py[cod]
+*$py.class
 
-# Virtual environment
+# =========================
+# Virtual Environment
+# =========================
 venv/
+env/
+ENV/
 
-# macOS files
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.*
+
+# =========================
+# macOS System Files
+# =========================
 .DS_Store
 
-# Environment variables
-.env
-
-# VS Code settings
+# =========================
+# VS Code Settings
+# =========================
 .vscode/
 
-# Python compiled files
-*.pyc
-
+# =========================
 # Logs
+# =========================
 *.log
+
+# =========================
+# Flask Session Files
+# =========================
+flask_session/
+
+# =========================
+# SQLite Database Files
+# =========================
+*.sqlite3
+*.db
+
+# =========================
+# Pytest Cache
+# =========================
+.pytest_cache/
+
+# =========================
+# Mypy Cache
+# =========================
+.mypy_cache/
+
+# =========================
+# Coverage Reports
+# =========================
+htmlcov/
+.coverage
+coverage.xml
+
+# =========================
+# Build Files
+# =========================
+build/
+dist/
+*.egg-info/
+
+# =========================
+# IDE Files
+# =========================
+.idea/
+
+# =========================
+# AWS Credentials (IMPORTANT)
+# =========================
+.aws/
+
+# =========================
+# Temporary Files
+# =========================
+*.tmp
+*.swp
