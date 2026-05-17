@@ -86,7 +86,7 @@ def register():
             }
         )
         return redirect('/login')
-    return render_template("register.html")
+    return render_template("auth/register.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -98,10 +98,10 @@ def login():
                 session['user'] = user['email']
                 session['name'] = user['name']
                 return redirect('/dashboard')
-            return render_template("login.html", error="Invalid Credentials")
+            return render_template("auth/login.html", error="Invalid Credentials")
         except Exception as e:
-            return render_template("login.html", error=str(e))
-    return render_template("login.html")
+            return render_template("auth/login.html", error=str(e))
+    return render_template("auth/login.html")
 
 @app.route('/dashboard')
 def dashboard():
@@ -121,24 +121,32 @@ def dashboard():
         response = bookings_table.scan(FilterExpression=Key('email').eq(session['user']))
         bookings = response.get('Items', [])
     
-    return render_template("dashboard.html", name=session.get('name', 'User'), bookings=bookings)
+    return render_template(
+    "dashboard/dashboard.html",
+    name=session.get('name', 'User'),
+    bookings=bookings
+)
 
 @app.route('/bus')
-def bus(): return render_template("bus.html", buses=bus_data)
+def bus(): return render_template("booking/bus.html", buses=bus_data)
 
 @app.route('/train')
-def train(): return render_template("train.html", trains=train_data)
+def train(): return render_template("booking/train.html", trains=train_data)
 
 @app.route('/flight')
-def flight(): return render_template("flight.html", flights=flight_data)
+def flight(): return render_template("booking/flight.html", flights=flight_data)
 
 @app.route('/hotels')
-def hotels(): return render_template("hotels.html", hotels=hotel_data)
+def hotels(): return render_template("booking/hotels.html", hotels=hotel_data)
 
 @app.route('/seat/<transport_id>/<price>')
 def seat(transport_id, price):
     if 'user' not in session: return redirect('/login')
-    return render_template("seat.html", id=transport_id, price=price)
+    return render_template(
+    "booking/seat.html",
+    id=transport_id,
+    price=price
+)
 
 @app.route('/book', methods=['POST'])
 def book():
@@ -158,7 +166,10 @@ def book():
         'price': price,
         'date': str(datetime.date.today())
     }
-    return render_template("payment.html", booking=session['booking_flow'])
+    return render_template(
+    "booking/payment.html",
+    booking=session['booking_flow']
+)
 
 @app.route('/payment', methods=['POST'])
 def payment():
@@ -186,7 +197,10 @@ def payment():
 
     final_booking = booking_data.copy()
     session.pop('booking_flow', None)
-    return render_template("ticket.html", booking=final_booking)
+    return render_template(
+    "booking/ticket.html",
+    booking=final_booking
+)
 
 @app.route('/logout')
 def logout():
@@ -195,4 +209,4 @@ def logout():
 
 if __name__ == '__main__':
     # Running on 0.0.0.0 for EC2 access, but debug is OFF for safety
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=True)
