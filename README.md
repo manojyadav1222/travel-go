@@ -283,8 +283,7 @@ This project helped in understanding:
 
 # 👨‍💻 Author
 
-## Manoj Yadav
-
+## S.Manoj Kumar
 - GitHub: https://github.com/manojyadav1222
 
 ---
